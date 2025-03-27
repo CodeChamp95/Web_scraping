@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL Schedule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>IPL Schedule</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <form action="/schedule" method="post">
+            <label for="choice">Enter your choice:</label>
+            <select name="choice" id="choice">
+                <option value="1">Entire Schedule</option>
+                <option value="2">Search by favorite team</option>
+                <option value="3">Search by favorite team home matches</option>
+                <option value="4">Search by favorite team away matches</option>
+                <option value="5">Search by specific match</option>
+                <option value="6">Search by location</option>
+                <option value="7">Search by date and time</option>
+            </select>
+            <div id="additional-fields"></div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('choice').addEventListener('change', function() {
+            var choice = this.value;
+            var additionalFields = document.getElementById('additional-fields');
+            additionalFields.innerHTML = '';
+            if (choice == 2 || choice == 3 || choice == 4) {
+                additionalFields.innerHTML = '<label for="fav_team">Enter your favorite team:</label><input type="text" name="fav_team" id="fav_team">';
+            } else if (choice == 5) {
+                additionalFields.innerHTML = '<label for="home_team">Enter the home team:</label><input type="text" name="home_team" id="home_team"><label for="away_team">Enter the away team:</label><input type="text" name="away_team" id="away_team">';
+            } else if (choice == 6) {
+                additionalFields.innerHTML = '<label for="location">Enter the location:</label><input type="text" name="location" id="location">';
+            } else if (choice == 7) {
+                additionalFields.innerHTML = '<label for="date_time">Enter the date and time:</label><input type="text" name="date_time" id="date_time">';
+            }
+        });
+    </script>
+</body>
+</html>
